@@ -7,19 +7,28 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/test', function () {
-    $result = OpenAI::chat()->create([
-//        'model' => 'gpt-3.5-turbo',
-//        'messages' => [
-//            ['role' => 'user', 'content' => 'Hello!'],
-//        ],
-        'model' => 'gpt-4',
-        'messages' => [
-            ['role' => 'user', 'content' => 'do you like pina coladas?',]
-        ],
-    ]);
-
-    return $result->choices[0]->message->content; // Hello! How can I assist you today?
+Route::get('/chats', function () {
+    return view('index');
 });
+
+
+Route::get('/chat', function () {
+    $type = new stdClass();
+    $chat = \App\Models\Chat::first();
+    $user = \App\Models\User::all();
+    $message = \App\Models\Message::where('user_id', 1)->where('message', 'LIKE', 'meow%')->get()->first();
+    $test = [
+        'meow',
+        1,
+        2,
+        [
+            'hamez' => 'coollest'
+        ]
+    ];
+
+//
+    dd($message, $chat->messages);
+});
+Route::post('/chat-ask', [\App\Http\Controllers\ChatController::class, 'ask'])->name('chat.ask');
 
 

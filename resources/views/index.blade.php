@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>{{ config('app.name') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -31,15 +31,25 @@
                 <img src="https://via.placeholder.com/50" alt="Your profile" class="w-6 h-6 rounded-full order-2">
             </div>
         </div>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <!-- Message Input Field -->
         <div class="mb-4 mx-4">
-            <div class="flex items-center py-2 px-3 bg-gray-50 rounded-lg">
-                <input type="text" placeholder="Type your message here..." class="bg-gray-50 outline-none text-sm flex-1">
+            <form action="{{ route('chat.ask') }}" method="POST" class="flex items-center py-2 px-3 bg-gray-50 rounded-lg">
+                @csrf
+                <input type="text" name="message" placeholder="Type your message here..." class="bg-gray-50 outline-none text-sm flex-1">
                 <button class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Send
                 </button>
-            </div>
+            </form>
         </div>
     </div>
 
