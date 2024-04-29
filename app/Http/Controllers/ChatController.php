@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ChatMessageFormRequest;
+use App\Models\Chat;
 use Illuminate\Http\Request;
 use OpenAI\Laravel\Facades\OpenAI;
 class ChatController extends Controller
 {
+    public function index(Request $request)
+    {
+        $chat = Chat::where('id', 1)->get()->first();
+        return view('index', compact('chat'));
+    }
     public function ask(ChatMessageFormRequest $request)
     {
         $question = $request->input('message');
@@ -31,6 +37,6 @@ class ChatController extends Controller
             'message' => $question,
             'response' => $response
         ]);
-        return $response; // Hello! How can I assist you today?
+        return redirect()->back();
     }
 }
