@@ -18,28 +18,30 @@
 
         <!-- Chat Messages Container -->
         <div class="flex-1 overflow-auto p-4 space-y-4">
-            @foreach($chat->messages as $message)
-            <div class="flex items-end justify-end">
-                <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
-                    <div>
-                        <span class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-gray-300 text-gray-600">
-                            {!! $message->message !!}
+            @if(!is_null($chat) && $chat->messages)
+                @foreach($chat->messages as $message)
+                <div class="flex items-end justify-end">
+                    <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-1 items-end">
+                        <div>
+                            <span class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-gray-300 text-gray-600">
+                                {!! $message->message !!}
+                            </span>
+                        </div>
+                    </div>
+                    <img src="https://via.placeholder.com/50" alt="Your profile" class="w-6 h-6 rounded-full order-2">
+                </div>
+                <div class="flex items-end">
+                    <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
+                        <div>
+                        <span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-blue-600 text-white ">
+                            {!! $message->response !!}
                         </span>
+                        </div>
                     </div>
+                    <img src="https://via.placeholder.com/50" alt="My profile" class="w-6 h-6 rounded-full order-1">
                 </div>
-                <img src="https://via.placeholder.com/50" alt="Your profile" class="w-6 h-6 rounded-full order-2">
-            </div>
-            <div class="flex items-end">
-                <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 order-2 items-start">
-                    <div>
-                    <span class="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-blue-600 text-white ">
-                        {!! $message->response !!}
-                    </span>
-                    </div>
-                </div>
-                <img src="https://via.placeholder.com/50" alt="My profile" class="w-6 h-6 rounded-full order-1">
-            </div>
-            @endforeach
+                @endforeach
+            @endif
         </div>
         @if ($errors->any())
             <div class="alert alert-danger">
