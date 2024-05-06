@@ -8,12 +8,19 @@ use Illuminate\Http\Request;
 use OpenAI\Laravel\Facades\OpenAI;
 class ChatController extends Controller
 {
+
     public function index(Request $request)
     {
-        $chat = Chat::where('id', 1)->get()->first();
-        return view('index', compact('chat'));
+        $chats = Chat::all();
+        return view('chat.index', compact('chats'));
     }
-    public function ask(ChatMessageFormRequest $request)
+
+    public function show(Request $request, Chat $chat)
+    {
+        return view('chat.show', compact('chat'));
+    }
+
+    public function ask(ChatMessageFormRequest $request, Chat $chat)
     {
         $question = $request->input('message');
         $result = OpenAI::chat()->create([
@@ -29,8 +36,7 @@ class ChatController extends Controller
 
         $response = $result->choices[0]->message->content;
 
-        $user = \App\Models\User::first();
-        $chat = \App\Models\Chat::first();
+        $user = $chat->user;
         \App\Models\Message::create([
             'user_id' => $user->id,
             'chat_id' => $chat->id,
