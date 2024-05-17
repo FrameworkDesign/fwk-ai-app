@@ -20,6 +20,14 @@ class ChatController extends Controller
         return view('chat.show', compact('chat'));
     }
 
+    public function create(Request $request)
+    {
+        $chat = Chat::first();
+        return view('chat.show', compact('chat'));
+    }
+
+
+
     public function ask(ChatMessageFormRequest $request, Chat $chat)
     {
         $question = $request->input('message');

@@ -46,7 +46,7 @@
             @endif
 
             <!-- Message Input Field -->
-            <div class="mb-4 mx-4">
+            <div class="mb-4 mx-4" id="chat-box">
 
                 <form action="{{route('chat.ask', ['chat' => $chat->id])}}" method="POST" class="flex items-center py-2 px-3 bg-gray-50 rounded-lg">
                     @csrf
