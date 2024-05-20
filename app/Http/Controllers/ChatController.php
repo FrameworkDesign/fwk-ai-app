@@ -27,7 +27,7 @@ class ChatController extends Controller
             'active' => 1
         ]);
 
-        return view('chat.show', compact('chat'));
+        return redirect()->route('chat.show', $chat);
     }
 
 
