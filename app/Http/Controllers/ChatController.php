@@ -11,7 +11,7 @@ class ChatController extends Controller
 
     public function index(Request $request)
     {
-        $chats = Chat::all();
+        $chats = Chat::orderBy('id', 'desc')->get();
         return view('chat.index', compact('chats'));
     }
 
