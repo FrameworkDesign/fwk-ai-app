@@ -48,7 +48,7 @@
             <!-- Message Input Field -->
             <div class="mb-4 mx-4" id="chat-box">
 
-                <form action="{{route('chat.ask', ['chat' => $chat->id])}}" method="POST" class="flex items-center py-2 px-3 bg-gray-50 rounded-lg">
+                <form action="{{route('chat.ask', ['chat' => $chat->id])}}#chat-box" method="POST" class="flex items-center py-2 px-3 bg-gray-50 rounded-lg">
                     @csrf
                     <input type="text" name="message" placeholder="Type your message here..." class="bg-gray-50 outline-none text-sm flex-1">
                     <button class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

@@ -22,7 +22,11 @@ class ChatController extends Controller
 
     public function create(Request $request)
     {
-        $chat = Chat::first();
+        $user = auth()->user();
+        $chat = $user->chats()->create([
+            'active' => 1
+        ]);
+
         return view('chat.show', compact('chat'));
     }
 
@@ -30,13 +34,10 @@ class ChatController extends Controller
 
     public function ask(ChatMessageFormRequest $request, Chat $chat)
     {
+        // https://platform.openai.com/docs/models
         $question = $request->input('message');
         $result = OpenAI::chat()->create([
-//        'model' => 'gpt-3.5-turbo',
-//        'messages' => [
-//            ['role' => 'user', 'content' => 'Hello!'],
-//        ],
-            'model' => 'gpt-4',
+            'model' => 'gpt-3.5-turbo-0125',
             'messages' => [
                 ['role' => 'user', 'content' => $question]
             ],
