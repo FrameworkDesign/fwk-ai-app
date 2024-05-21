@@ -11,7 +11,8 @@ class ChatController extends Controller
 
     public function index(Request $request)
     {
-        $chats = Chat::orderBy('id', 'desc')->get();
+        $user = auth()->user();
+        $chats = Chat::where('user_id', $user->id)->orderBy('id', 'desc')->get();
         return view('chat.index', compact('chats'));
     }
 
@@ -44,7 +45,6 @@ class ChatController extends Controller
         ]);
 
         $response = $result->choices[0]->message->content;
-
         $user = $chat->user;
         \App\Models\Message::create([
             'user_id' => $user->id,
